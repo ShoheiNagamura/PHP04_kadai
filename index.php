@@ -43,17 +43,17 @@
                 </li>
                 <li class="login">ログイン
                     <ul class="login-down">
-                        <a href="./order_login.php">
+                        <a href="./orderLogin/order_login.php">
                             <li class="order-login">発注者ログイン</li>
                         </a>
-                        <a href="./seller_login.php">
+                        <a href="./sellerLogin/seller_login.php">
                             <li class="seller-login">販売者ログイン</li>
                         </a>
                     </ul>
                 </li>
                 <li class="job">案件管理
                     <ul class="job-down">
-                        <a href="./jobInput.php">
+                        <a href="./sellerLogin/seller_login.php">
                             <li class="job-input">案件登録</li>
                         </a>
                         <a href="./jobInputList.php">
