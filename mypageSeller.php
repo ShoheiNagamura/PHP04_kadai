@@ -1,6 +1,36 @@
 <?php
+// //DB接続関数読み込み
+// include('./functions/connect_to_db.php');
+// include('./functions/check_session_id');
+
+// session_start();
 
 
+
+// // id受け取り
+// $id = $_GET['id'];
+
+// // DB接続
+// $pdo = connect_to_db();
+
+// // SQL実行
+// $sql = 'SELECT * FROM seller_users WHERE id=:id';
+// $stmt = $pdo->prepare($sql);
+// $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+// try {
+//     $status = $stmt->execute();
+// } catch (PDOException $e) {
+//     echo json_encode(["sql error" => "{$e->getMessage()}"]);
+//     exit();
+// }
+
+// $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($result);
+// echo '</pre>';
+// exit();
 
 ?>
 
@@ -14,75 +44,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Zen+Kurenaido&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>PHP課題02</title>
 </head>
 
 <body>
-
     <header>
         <div class="header-title">
-            <a href="../index.php">
+            <a href="./index.php">
                 <h1>ご依頼マッチングサイト</h1>
             </a>
         </div>
         <nav>
             <ul class="header-nav">
-                <a href="../search_list.php">
+                <a href="./search_list.php">
                     <li>依頼できる人一覧</li>
                 </a>
                 <li class="signup">新規登録
                     <ul class="signup-down">
-                        <a href="../order_signup.php">
+                        <a href="./order_signup.php">
                             <li class="order-signup">発注者登録</li>
                         </a>
-                        <a href="../seller_signup.php">
+                        <a href="./seller_signup.php">
                             <li class="seller-signup">販売者登録</li>
                         </a>
                     </ul>
                 </li>
                 <li class="login">ログイン
                     <ul class="login-down">
-                        <a href="../orderLogin/order_login.php">
+                        <a href="./orderLogin/order_login.php">
                             <li class="order-login">発注者ログイン</li>
                         </a>
-                        <a href="../sellerLogin/seller_login.php">
+                        <a href="./sellerLogin/seller_login.php">
                             <li class="seller-login">販売者ログイン</li>
                         </a>
                     </ul>
                 </li>
                 <li class="job">案件管理
                     <ul class="job-down">
-                        <a href="../jobInput.php">
+                        <a href="./jobInput.php">
                             <li class="job-input">案件登録</li>
                         </a>
-                        <a href="../jobInputList.php">
+                        <a href="./jobInputList.php">
                             <li class="job-list">案件管理一覧</li>
                         </a>
                     </ul>
                 </li>
             </ul>
-            <a href="../mypage.php">
-                <img src="../img/mypage.png" alt="マイページアイコン">
+            <a href="./mypage.php">
+                <img src="./img/mypage.png" alt="マイページアイコン">
             </a>
         </nav>
     </header>
 
-    <main>
-        <div class="signup-form">
-            <h2>発注者ログイン</h2>
-            <p>ご登録がまだの方は<a href="../order_signup.php">こちら ←</a></p>
-            <form class="form-area" action="./order_login_act.php" method="POST">
-                <label for="email">メールアドレス</label>
-                <input type="email" id="email" name="email" placeholder="メールアドレスを入力してください">
-                <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" placeholder="パスワードを入力してください">
-                <button>ログイン</button>
-            </form>
+    <div class="mypage-main">
+        <h2>販売者マイページ</h2>
+        <button>プロフィール編集</button>
+        <div class="mypage-display">
+
         </div>
 
+    </div>
 
-    </main>
 
 </body>
 
