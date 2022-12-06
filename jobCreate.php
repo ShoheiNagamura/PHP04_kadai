@@ -3,6 +3,8 @@
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
+session_start();
+
 if (
     !isset($_POST['jobName']) || $_POST['jobName'] == '' ||
     !isset($_POST['status']) || $_POST['status'] == '' ||

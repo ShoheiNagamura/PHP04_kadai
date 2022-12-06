@@ -3,6 +3,9 @@
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
+session_start();
+
+
 
 
 if (
