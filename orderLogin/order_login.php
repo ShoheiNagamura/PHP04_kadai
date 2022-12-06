@@ -69,9 +69,21 @@
     </header>
 
     <main>
-        <h2>発注者ログイン</h2>
+        <div class="signup-form">
+            <h2>発注者ログイン</h2>
+            <p>ご登録がまだの方は<a href="../order_signup.php">こちら ←</a></p>
+            <form class="form-area" action="./orderUserCreate.php" method="POST">
+                <label for="email">メールアドレス</label>
+                <input type="email" id="email" name="email" placeholder="メールアドレスを入力してください">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" placeholder="パスワードを入力してください">
+                <button>ログイン</button>
+            </form>
+        </div>
+
 
     </main>
+
 </body>
 
 </html>
