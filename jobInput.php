@@ -1,6 +1,9 @@
 <?php
 include('./functions/check_session_id');
 
+session_start();
+
+
 
 
 ?>

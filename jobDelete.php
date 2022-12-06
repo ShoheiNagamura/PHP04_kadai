@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+
 // データ受け取り
 $id = $_GET['id'];
 
