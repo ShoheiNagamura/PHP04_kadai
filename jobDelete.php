@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+order_check_session_id();
 
 // データ受け取り
 $id = $_GET['id'];
