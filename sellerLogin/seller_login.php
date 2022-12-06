@@ -72,7 +72,7 @@
         <div class="signup-form">
             <h2>販売者ログイン</h2>
             <p>ご登録がまだの方は<a href="../seller_signup.php">こちら ←</a></p>
-            <form class="form-area" action="./orderUserCreate.php" method="POST">
+            <form class="form-area" action="./seller_login_act.php" method="POST">
                 <label for="email">メールアドレス</label>
                 <input type="email" id="email" name="email" placeholder="メールアドレスを入力してください">
                 <label for="password">パスワード</label>
