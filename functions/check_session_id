@@ -1,10 +1,23 @@
 <?php
 
-// ログイン状態のチェック関数
-function check_session_id()
+// order用 ログイン状態のチェック関数
+function order_check_session_id()
 {
     if (!isset($_SESSION["session_id"]) || $_SESSION["session_id"] != session_id()) {
-        header('Location:todo_login.php');
+        header('Location:./orderLogin/order_login.php');
+        exit();
+    } else {
+        session_regenerate_id(true);
+        $_SESSION["session_id"] = session_id();
+    }
+}
+
+
+// seller用 ログイン状態のチェック関数 
+function seller_check_session_id()
+{
+    if (!isset($_SESSION["session_id"]) || $_SESSION["session_id"] != session_id()) {
+        header('Location:./sellerLogin/seller_login.php');
         exit();
     } else {
         session_regenerate_id(true);

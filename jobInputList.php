@@ -4,6 +4,16 @@ include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
 session_start();
+// var_dump($_SESSION['is_user']);
+// exit();
+
+if ($_SESSION['is_user'] == 0) {
+    order_check_session_id();
+} else {
+    header("Location:./orderLogin/order_login.php");
+    exit();
+}
+
 
 
 

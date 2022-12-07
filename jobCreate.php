@@ -4,6 +4,12 @@ include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
 session_start();
+if ($_SESSION['is_user'] == 0) {
+    order_check_session_id();
+} else {
+    header("Location:./orderLogin/order_login.php");
+    exit();
+}
 
 if (
     !isset($_POST['jobName']) || $_POST['jobName'] == '' ||
