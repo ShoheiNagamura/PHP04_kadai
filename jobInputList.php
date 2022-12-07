@@ -15,10 +15,10 @@ if ($_SESSION['is_user'] == 0) {
 }
 
 
-
-
 //関数定義ファイルからDB接続関数呼び出す
 $pdo = connect_to_db();
+
+// 一覧表示用処理---------------------------------------------------------------
 
 //selectのSQLクエリ用意
 $sql = 'SELECT * FROM job_project order by update_time DESC';
@@ -41,9 +41,8 @@ if ($status == false) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// echo "<pre>";
-// var_dump($result);
-// echo "</pre>";
+// 取得したデータ件数を用意
+$job_num = count($result);
 
 $output = "";
 
@@ -167,6 +166,7 @@ foreach ($result as $record) {
 
         <div class="main-area">
             <h2>登録済みの案件一覧</h2>
+            <h3 class="job_num"><?= $job_num ?>件を登録済み</h3>
             <div class="job-area">
                 <?= $output ?>
             </div>
