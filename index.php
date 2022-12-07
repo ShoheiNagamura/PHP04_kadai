@@ -1,4 +1,7 @@
 <?php
+session_start();
+$hoge =  $_SESSION['name'];
+
 
 
 
@@ -72,6 +75,11 @@
     <main>
 
     </main>
+
+    <script>
+
+    </script>
+
 </body>
 
 </html>

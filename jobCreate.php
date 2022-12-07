@@ -24,9 +24,12 @@ if (
     exit('ParamError');
 }
 
+
+$tax = 1.1;
+
 $jobName = $_POST['jobName'];
 $status = $_POST['status'];
-$reward = $_POST['reward'];
+$reward = $_POST['reward'] * $tax;
 $place = $_POST['place'];
 $schedule = $_POST['schedule'];
 $TransportationCosts = $_POST['TransportationCosts'];
