@@ -3,7 +3,8 @@
 // include('./functions/connect_to_db.php');
 // include('./functions/check_session_id');
 
-// session_start();
+session_start();
+seller_check_session_id();
 
 
 
