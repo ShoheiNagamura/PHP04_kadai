@@ -41,6 +41,8 @@ if ($status == false) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+
 // 取得したデータ件数を用意
 $job_num = count($result);
 
