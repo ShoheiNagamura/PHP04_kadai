@@ -1,6 +1,17 @@
 <?php
+//DB接続関数読み込み
+include('./functions/connect_to_db.php');
+include('./functions/check_session_id');
+
+
 session_start();
-order_check_session_id();
+
+if ($_SESSION['is_user'] == 0) {
+    order_check_session_id();
+} else {
+    header("Location:./orderLogin/order_login.php");
+    exit();
+}
 
 // データ受け取り
 $id = $_GET['id'];

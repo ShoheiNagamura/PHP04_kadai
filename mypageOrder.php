@@ -1,13 +1,21 @@
 <?php
 
+
+//DB接続関数読み込み
+include('./functions/connect_to_db.php');
+include('./functions/check_session_id');
+
+
 session_start();
-order_check_session_id();
-// //DB接続関数読み込み
-// include('./functions/connect_to_db.php');
-// include('./functions/check_session_id');
+// var_dump($_SESSION['is_user']);
+// exit();
 
-// session_start();
-
+if ($_SESSION['is_user'] == 0) {
+    order_check_session_id();
+} else {
+    header("Location:./orderLogin/order_login.php");
+    exit();
+}
 
 
 // // id受け取り

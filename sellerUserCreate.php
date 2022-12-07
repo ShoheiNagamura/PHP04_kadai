@@ -8,6 +8,7 @@ session_start();
 
 
 
+
 if (
     !isset($_POST['name']) || $_POST['name'] == '' ||
     !isset($_POST['email']) || $_POST['email'] == '' ||
@@ -20,7 +21,7 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$passwd_hash = password_hash($password, PASSWORD_DEFAULT);
+// $passwd_hash = password_hash($password, PASSWORD_DEFAULT);
 
 
 
@@ -34,7 +35,7 @@ $stmt = $pdo->prepare($sql);
 
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);
 $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-$stmt->bindValue(':password', $passwd_hash, PDO::PARAM_STR);
+$stmt->bindValue(':password', $password, PDO::PARAM_STR);
 
 try {
     $status = $stmt->execute();

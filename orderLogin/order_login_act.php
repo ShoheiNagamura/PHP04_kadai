@@ -40,6 +40,7 @@ if (!$val) {
     $_SESSION = array();
     $_SESSION['session_id'] = session_id();
     $_SESSION['name'] = $val['name'];
-    header("Location:../index.php");
+    $_SESSION['is_user'] = $val['is_user'];
+    header("Location:../jobInputList.php");
     exit();
 }

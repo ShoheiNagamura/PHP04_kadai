@@ -2,6 +2,7 @@
 
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +54,7 @@
                 </li>
                 <li class="job">案件管理
                     <ul class="job-down">
-                        <a href="./sellerLogin/seller_login.php">
+                        <a href="./jobInput.php">
                             <li class="job-input">案件登録</li>
                         </a>
                         <a href="./jobInputList.php">
