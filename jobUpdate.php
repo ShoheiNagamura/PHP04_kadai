@@ -1,4 +1,7 @@
 <?php
+// 案件更新処理ーーーーーーーーーーーーーーーーーーーーーーー
+
+
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');

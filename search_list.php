@@ -1,4 +1,6 @@
 <?php
+// 販売者一覧画面ーーーーーーーーーーーーーーーーーーーーーーーーー
+
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
