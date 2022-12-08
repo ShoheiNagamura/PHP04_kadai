@@ -39,6 +39,7 @@ if (!$val) {
 } else {
     $_SESSION = array();
     $_SESSION['session_id'] = session_id();
+    $_SESSION['id'] = $val['id'];
     $_SESSION['name'] = $val['name'];
     $_SESSION['is_user'] = $val['is_user'];
     $_SESSION['business_name'] = $val['business_name'];
