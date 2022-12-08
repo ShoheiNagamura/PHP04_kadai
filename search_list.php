@@ -114,7 +114,7 @@ foreach ($result as $record) {
                     </ul>
                 </li>
             </ul>
-            <a href="./mypage.php">
+            <a href="./selectmypage.php">
                 <img src="./img/mypage.png" alt="マイページアイコン">
             </a>
         </nav>

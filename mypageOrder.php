@@ -130,9 +130,9 @@ foreach ($result as $record) {
                     </ul>
                 </li>
             </ul>
-            <a href="./mypage.php">
-                <img src="./img/mypage.png" alt="マイページアイコン">
-            </a>
+            <!-- <a class="mypage-img" href="./mypage.php">
+                <img class="mypage-img" src="./img/mypage.png" alt="マイページアイコン">
+            </a> -->
         </nav>
     </header>
 
