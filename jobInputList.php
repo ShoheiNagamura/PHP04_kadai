@@ -1,4 +1,8 @@
 <?php
+// 登録済み案件一覧ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');

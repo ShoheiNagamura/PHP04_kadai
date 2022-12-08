@@ -1,4 +1,5 @@
 <?php
+// 発注者マイページーーーーーーーーーーーーーーーーーーーー
 
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');

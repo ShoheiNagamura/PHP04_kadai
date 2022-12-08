@@ -1,4 +1,6 @@
 <?php
+// マイページ遷移処理ーーーーーーーーーーーーーーーーーーー
+
 include('./functions/check_session_id');
 
 session_start();
