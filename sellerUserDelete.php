@@ -5,10 +5,10 @@ include('./functions/connect_to_db.php');
 
 session_start();
 
-if ($_SESSION['is_user'] == 0) {
-    order_check_session_id();
+if ($_SESSION['is_user'] == 1) {
+    seller_check_session_id();
 } else {
-    header("Location:./orderLogin/order_login.php");
+    header("Location:./orderLogin/seller_login.php");
     exit();
 }
 
@@ -16,7 +16,7 @@ $id = $_SESSION['id'];
 
 $pdo = connect_to_db();
 
-$sql = 'DELETE FROM order_users WHERE id=:id';
+$sql = 'DELETE FROM seller_users WHERE id=:id';
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_STR);
