@@ -4,16 +4,28 @@ include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
 session_start();
+if ($_SESSION['is_user'] == 1) {
+    seller_check_session_id();
+} else {
+    header("Location:./orderLogin/seller_login.php");
+    exit();
+}
 
 
-//関数定義ファイルからDB接続関数呼び出す
+
+// id受け取り
+$id = $_SESSION['id'];
+
+
+// DB接続
 $pdo = connect_to_db();
 
-//selectのSQLクエリ用意
-$sql = 'SELECT * FROM seller_users order by update_time DESC';
-$stmt = $pdo->prepare($sql);
 
-//SQL実行するがまだデータの取得はできていない
+// SQL実行
+$sql = 'SELECT * FROM seller_users WHERE id=:id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
 try {
     $status = $stmt->execute();
 } catch (PDOException $e) {
@@ -21,32 +33,7 @@ try {
     exit();
 }
 
-//fectchAllでデータの取得
-if ($status == false) {
-    $error = $stmt->errorInfo();
-    exit('sqlError:' . $error[2]);
-} else {
-    // PHPではデータを取得するところまで実施
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// echo "<pre>";
-// var_dump($result);
-// echo "</pre>";
-
-$output = "";
-
-foreach ($result as $record) {
-    $output .= "
-        <div class='seller-items'>
-            <p class='seller-item seller-name'>名前: {$record["name"]}</p>
-            <p class='seller-item seller-email'>Email: {$record["email"]}</p>
-            <p class='seller-item seller-update_time'>更新日: {$record["update_time"]}</p>
-        </div>
-    ";
-}
-
-
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -107,21 +94,41 @@ foreach ($result as $record) {
                     </ul>
                 </li>
             </ul>
-            <a href="./selectmypage.php">
-                <img src="./img/mypage.png" alt="マイページアイコン">
-            </a>
         </nav>
     </header>
 
     <main>
-        <div class="main-area">
-            <h2>ご依頼する方をお選びください</h2>
-            <div class="hoge-area">
-                <?= $output ?>
+        <h2 class="">プロフィールを編集</h2>
+        <form class="" action="./SellerUserUpdate.php" method="POST">
+            <div class="">
+                <label for="name">お名前（必須）</label>
+                <input type="text" id="name" name="name" placeholder="お名前をご入力ください" value="<?= $result['name'] ?>">
             </div>
-        </div>
+            <div class=" ">
+                <label for="email">メールアドレス（必須）</label>
+                <input type="text" id="email" name="email" placeholder="メールアドレスをご入力ください" value="<?= $result['email'] ?>">
+            </div>
+            <div class=" ">
+                <label for="business_name">会社名(個人)</label>
+                <input type="text" id="business_name" name="business_name" placeholder="会社名または個人名をご入力ください" value="<?= $result['business_name'] ?>">
+            </div>
+            <div class=" ">
+                <label for="address">ご住所または活動地域</label>
+                <input type="text" id="address" name="address" placeholder="ご住所または活動地域をご入力ください" value="<?= $result['address'] ?>">
+            </div>
+            <div class=" ">
+                <label for="career">経歴</label>
+                <textarea id="career" name="career" placeholder="ご住所または活動地域をご入力ください" cols="30" rows="10"><?= $result['career'] ?></textarea>
+            </div>
+            <div class=" ">
+                <label for="pr">PR</label>
+                <textarea id="pr" name="pr" placeholder="PRしたいことをご記載ください" cols="30" rows="10"><?= $result['pr'] ?></textarea>
+            </div>
 
-
+            <button class="">変更を保存</button>
+            <input type="hidden" name="id" value="<?= $id ?>">
+        </form>
+        <a href="./mypageSeller.php"><button class="return">戻る</button></a>
     </main>
 
 
