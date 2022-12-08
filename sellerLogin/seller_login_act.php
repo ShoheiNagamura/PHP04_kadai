@@ -41,6 +41,13 @@ if (!$val) {
     $_SESSION['session_id'] = session_id();
     $_SESSION['name'] = $val['name'];
     $_SESSION['is_user'] = $val['is_user'];
+    $_SESSION['business_name'] = $val['business_name'];
+    $_SESSION['address'] = $val['address'];
+    $_SESSION['career'] = $val['career'];
+    $_SESSION['pr'] = $val['pr'];
+    $_SESSION['image'] = $val['image'];
+    $_SESSION['created_time'] = $val['created_time'];
+    $_SESSION['update_time'] = $val['update_time'];
     header("Location:../index.php");
     exit();
 }

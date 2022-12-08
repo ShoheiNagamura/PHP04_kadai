@@ -5,10 +5,6 @@ include('./functions/check_session_id');
 
 session_start();
 
-
-
-
-
 if (
     !isset($_POST['name']) || $_POST['name'] == '' ||
     !isset($_POST['email']) || $_POST['email'] == '' ||
