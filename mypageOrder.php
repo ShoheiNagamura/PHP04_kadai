@@ -58,7 +58,7 @@ foreach ($result as $record) {
         </div>
         <div class='order-mypage-button'>
             <a href=''><button>プロフィール編集</button></a>
-            <a href=''><button>ログアウト</button></a>
+            <a href='./LogOut/orderLogout.php'><button>ログアウト</button></a>
             <a href='./orderUserDelete.php?id={$record['id']}'><button>アカウントを削除</button></a>
         </div>
     ";
