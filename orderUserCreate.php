@@ -19,7 +19,7 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 //パスワードのハッシュ化
-$passwd_hash = password_hash($password, PASSWORD_DEFAULT);
+// $passwd_hash = password_hash($password, PASSWORD_DEFAULT);
 
 
 
