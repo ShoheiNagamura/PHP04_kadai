@@ -1,12 +1,9 @@
 <?php
-
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
-
 session_start();
-
 if ($_SESSION['is_user'] == 0) {
     order_check_session_id();
 } else {
@@ -14,12 +11,15 @@ if ($_SESSION['is_user'] == 0) {
     exit();
 }
 
+
+
+// id受け取り
 $id = $_SESSION['id'];
-// var_dump($id);
-// exit();
+
 
 // DB接続
 $pdo = connect_to_db();
+
 
 // SQL実行
 $sql = 'SELECT * FROM order_users WHERE id=:id';
@@ -33,36 +33,7 @@ try {
     exit();
 }
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// echo '<pre>';
-// var_dump($result);
-// echo '</pre>';
-// exit();
-$output = "";
-foreach ($result as $record) {
-    $output .= "
-        <div class='order-mypage-area'>
-            <tr class='mypage-item-name'>
-                <td class='mypage-name-title'>お名前：</td>
-                <td class='mypage-name'>{$record["name"]}</td>
-            </tr><br>
-            <tr class='mypage-item-email'>
-                <td class='mypage-email-title'>メールアドレス：</td>
-                <td class='mypage-email'>{$record['email']}</td>
-            </tr><br>
-            <tr class='mypage-item-created_time'>
-                <td class='mypage-created_time-title'>アカウント作成日：</td>
-                <td class='mypage-created_time'>{$record['created_time']}</td>
-            </tr>
-        </div>
-        <div class='order-mypage-button'>
-            <a href='./OrderUserEdit.php'><button>プロフィール編集</button></a>
-            <a href='./LogOut/orderLogout.php'><button>ログアウト</button></a>
-            <a href='./orderUserDelete.php?id={$record['id']}'><button>アカウントを削除</button></a>
-        </div>
-    ";
-}
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -123,16 +94,26 @@ foreach ($result as $record) {
                     </ul>
                 </li>
             </ul>
-            <!-- <a class="mypage-img" href="./mypage.php">
-                <img class="mypage-img" src="./img/mypage.png" alt="マイページアイコン">
-            </a> -->
         </nav>
     </header>
 
-    <div class="mypage-main">
-        <h2>発注者マイページ</h2>
-        <?= $output ?>
-    </div>
+    <main>
+        <h2 class="">プロフィールを編集</h2>
+        <form class="" action="./OrderUserUpdate.php" method="POST">
+            <div class="">
+                <label for="name">お名前（必須）</label>
+                <input type="text" id="name" name="name" placeholder="お名前をご入力ください" value="<?= $result['name'] ?>">
+            </div>
+            <div class=" ">
+                <label for="email">メールアドレス（必須）</label>
+                <input type="text" id="email" name="email" placeholder="メールアドレスをご入力ください" value="<?= $result['email'] ?>">
+            </div>
+
+            <button class="jobInputArea-btn">変更を保存</button>
+            <input type="hidden" name="id" value="<?= $id ?>">
+        </form>
+        <a href="./mypageOrder.php"><button class="return">戻る</button></a>
+    </main>
 
 
 </body>
