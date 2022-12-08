@@ -69,7 +69,7 @@ foreach ($result as $record) {
             </tr>
         </div>
         <div class='order-mypage-button'>
-            <a href=''><button>プロフィール編集</button></a>
+            <a href='./SellerUserEdit.php'><button>プロフィール編集</button></a>
             <a href='./LogOut/sellerLogout.php'><button>ログアウト</button></a>
             <a href='./sellerUserDelete.php?id={$record['id']}'><button>アカウントを削除</button></a>
         </div>
@@ -104,13 +104,6 @@ foreach ($result as $record) {
                 <a href="./search_list.php">
                     <li>依頼できる人一覧</li>
                 </a>
-                <a href="./mypageOrder.php">
-                    <li>発注者マイページ</li>
-                </a>
-                <a href="./mypageSeller.php">
-                    <li>販売者マイページ</li>
-                </a>
-
                 <li class="signup">新規登録
                     <ul class="signup-down">
                         <a href="./order_signup.php">
@@ -142,9 +135,6 @@ foreach ($result as $record) {
                     </ul>
                 </li>
             </ul>
-            <!-- <a class="mypage-img" href="./mypage.php">
-                <img class="mypage-img" src="./img/mypage.png" alt="マイページアイコン">
-            </a> -->
         </nav>
     </header>
 
