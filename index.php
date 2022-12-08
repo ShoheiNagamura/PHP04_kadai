@@ -1,9 +1,5 @@
 <?php
 session_start();
-$hoge =  $_SESSION['name'];
-
-
-
 
 
 ?>
@@ -34,6 +30,12 @@ $hoge =  $_SESSION['name'];
             <ul class="header-nav">
                 <a href="./search_list.php">
                     <li>依頼できる人一覧</li>
+                </a>
+                <a href="./mypageOrder.php">
+                    <li>発注者マイページ</li>
+                </a>
+                <a href="./mypageSeller.php">
+                    <li>販売者マイページ</li>
                 </a>
                 <li class="signup">新規登録
                     <ul class="signup-down">

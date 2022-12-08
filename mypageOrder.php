@@ -1,14 +1,11 @@
 <?php
 
-
 //DB接続関数読み込み
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
 
 session_start();
-// var_dump($_SESSION['is_user']);
-// exit();
 
 if ($_SESSION['is_user'] == 0) {
     order_check_session_id();
@@ -17,31 +14,55 @@ if ($_SESSION['is_user'] == 0) {
     exit();
 }
 
+$id = $_SESSION['id'];
+// var_dump($id);
+// exit();
 
-// // id受け取り
-// $id = $_GET['id'];
+// DB接続
+$pdo = connect_to_db();
 
-// // DB接続
-// $pdo = connect_to_db();
+// SQL実行
+$sql = 'SELECT * FROM order_users WHERE id=:id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-// // SQL実行
-// $sql = 'SELECT * FROM seller_users WHERE id=:id';
-// $stmt = $pdo->prepare($sql);
-// $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+try {
+    $status = $stmt->execute();
+} catch (PDOException $e) {
+    echo json_encode(["sql error" => "{$e->getMessage()}"]);
+    exit();
+}
 
-// try {
-//     $status = $stmt->execute();
-// } catch (PDOException $e) {
-//     echo json_encode(["sql error" => "{$e->getMessage()}"]);
-//     exit();
-// }
-
-// $result = $stmt->fetch(PDO::FETCH_ASSOC);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // echo '<pre>';
 // var_dump($result);
 // echo '</pre>';
 // exit();
+$output = "";
+foreach ($result as $record) {
+    $output .= "
+        <div class='order-mypage-area'>
+            <tr class='mypage-item-name'>
+                <td class='mypage-name-title'>お名前：</td>
+                <td class='mypage-name'>{$record["name"]}</td>
+            </tr><br>
+            <tr class='mypage-item-email'>
+                <td class='mypage-email-title'>メールアドレス：</td>
+                <td class='mypage-email'>{$record['email']}</td>
+            </tr><br>
+            <tr class='mypage-item-created_time'>
+                <td class='mypage-created_time-title'>アカウント作成日：</td>
+                <td class='mypage-created_time'>{$record['created_time']}</td>
+            </tr>
+        </div>
+        <div class='order-mypage-button'>
+            <a href=''><button>プロフィール編集</button></a>
+            <a href=''><button>ログアウト</button></a>
+            <a href='./orderUserDelete.php?id={$record['id']}'><button>アカウントを削除</button></a>
+        </div>
+    ";
+}
 
 ?>
 
@@ -71,6 +92,13 @@ if ($_SESSION['is_user'] == 0) {
                 <a href="./search_list.php">
                     <li>依頼できる人一覧</li>
                 </a>
+                <a href="./mypageOrder.php">
+                    <li>発注者マイページ</li>
+                </a>
+                <a href="./mypageSeller.php">
+                    <li>販売者マイページ</li>
+                </a>
+
                 <li class="signup">新規登録
                     <ul class="signup-down">
                         <a href="./order_signup.php">
@@ -110,11 +138,7 @@ if ($_SESSION['is_user'] == 0) {
 
     <div class="mypage-main">
         <h2>発注者マイページ</h2>
-        <button>プロフィール編集</button>
-        <div class="mypage-display">
-
-        </div>
-
+        <?= $output ?>
     </div>
 
 

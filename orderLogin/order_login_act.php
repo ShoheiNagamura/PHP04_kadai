@@ -39,7 +39,10 @@ if (!$val) {
 } else {
     $_SESSION = array();
     $_SESSION['session_id'] = session_id();
+    $_SESSION['id'] = $val['id'];
     $_SESSION['name'] = $val['name'];
+    $_SESSION['email'] = $val['email'];
+    $_SESSION['password'] = $val['password'];
     $_SESSION['is_user'] = $val['is_user'];
     header("Location:../jobInputList.php");
     exit();
