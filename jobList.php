@@ -148,6 +148,7 @@ foreach ($result as $record) {
         <div class="main-area">
             <h2>案件一覧</h2>
             <h3 class="job_num"><?= $job_num ?>件を登録済み</h3>
+            <p>応募には登録が必要です。</p>
             <div class="job-area">
                 <?= $output ?>
             </div>
