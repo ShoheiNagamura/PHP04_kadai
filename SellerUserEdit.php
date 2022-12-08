@@ -3,25 +3,25 @@
 include('./functions/connect_to_db.php');
 include('./functions/check_session_id');
 
-
 session_start();
-// var_dump($_SESSION['is_user']);
-// exit();
-
 if ($_SESSION['is_user'] == 1) {
     seller_check_session_id();
 } else {
-    header("Location:./sellerLogin/seller_login.php");
+    header("Location:./orderLogin/seller_login.php");
     exit();
 }
 
-// // id受け取り
+
+
+// id受け取り
 $id = $_SESSION['id'];
 
-// // DB接続
+
+// DB接続
 $pdo = connect_to_db();
 
-// // SQL実行
+
+// SQL実行
 $sql = 'SELECT * FROM seller_users WHERE id=:id';
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -33,48 +33,7 @@ try {
     exit();
 }
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$output = "";
-foreach ($result as $record) {
-    $output .= "
-        <div class='order-mypage-area'>
-            <tr class='mypage-item-name'>
-                <td class='mypage-name-title'>お名前：</td>
-                <td class='mypage-name'>{$record["name"]}</td>
-            </tr><br>
-            <tr class='mypage-item-email'>
-                <td class='mypage-email-title'>メールアドレス：</td>
-                <td class='mypage-email'>{$record['email']}</td>
-            </tr><br>
-            <tr class='mypage-item-business_name'>
-                <td class='mypage-business_name-title'>会社名(個人):</td>
-                <td class='mypage-business_name'>{$record['business_name']}</td>
-            </tr><br>
-            <tr class='mypage-item-address'>
-                <td class='mypage-address-title'>住所または活動地域:</td>
-                <td class='mypage-address'>{$record['address']}</td>
-            </tr><br>
-            <tr class='mypage-item-career'>
-                <td class='mypage-career-title'>経歴:</td>
-                <td class='mypage-career'>{$record['career']}</td>
-            </tr><br>
-            <tr class='mypage-item-pr'>
-                <td class='mypage-pr-title'>PR:</td>
-                <td class='mypage-pr'>{$record['pr']}</td>
-            </tr><br>
-            <tr class='mypage-item-created_time'>
-                <td class='mypage-created_time-title'>アカウント作成日：</td>
-                <td class='mypage-created_time'>{$record['created_time']}</td>
-            </tr>
-        </div>
-        <div class='order-mypage-button'>
-            <a href='./SellerUserEdit.php'><button>プロフィール編集</button></a>
-            <a href='./LogOut/sellerLogout.php'><button>ログアウト</button></a>
-            <a href='./sellerUserDelete.php?id={$record['id']}'><button>アカウントを削除</button></a>
-        </div>
-    ";
-}
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -138,10 +97,39 @@ foreach ($result as $record) {
         </nav>
     </header>
 
-    <div class="mypage-main">
-        <h2>販売者マイページ</h2>
-        <?= $output ?>
-    </div>
+    <main>
+        <h2 class="">プロフィールを編集</h2>
+        <form class="" action="./SellerUserUpdate.php" method="POST">
+            <div class="">
+                <label for="name">お名前（必須）</label>
+                <input type="text" id="name" name="name" placeholder="お名前をご入力ください" value="<?= $result['name'] ?>">
+            </div>
+            <div class=" ">
+                <label for="email">メールアドレス（必須）</label>
+                <input type="text" id="email" name="email" placeholder="メールアドレスをご入力ください" value="<?= $result['email'] ?>">
+            </div>
+            <div class=" ">
+                <label for="business_name">会社名(個人)</label>
+                <input type="text" id="business_name" name="business_name" placeholder="会社名または個人名をご入力ください" value="<?= $result['business_name'] ?>">
+            </div>
+            <div class=" ">
+                <label for="address">ご住所または活動地域</label>
+                <input type="text" id="address" name="address" placeholder="ご住所または活動地域をご入力ください" value="<?= $result['address'] ?>">
+            </div>
+            <div class=" ">
+                <label for="career">経歴</label>
+                <textarea id="career" name="career" placeholder="ご住所または活動地域をご入力ください" cols="30" rows="10"><?= $result['career'] ?></textarea>
+            </div>
+            <div class=" ">
+                <label for="pr">PR</label>
+                <textarea id="pr" name="pr" placeholder="PRしたいことをご記載ください" cols="30" rows="10"><?= $result['pr'] ?></textarea>
+            </div>
+
+            <button class="">変更を保存</button>
+            <input type="hidden" name="id" value="<?= $id ?>">
+        </form>
+        <a href="./mypageSeller.php"><button class="return">戻る</button></a>
+    </main>
 
 
 </body>
