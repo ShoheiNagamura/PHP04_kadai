@@ -128,6 +128,9 @@ foreach ($result as $record) {
         </div>
         <nav>
             <ul class="header-nav">
+                <a href="./jobList.php">
+                    <li>案件一覧</li>
+                </a>
                 <a href="./search_list.php">
                     <li>依頼できる人一覧</li>
                 </a>
