@@ -19,15 +19,11 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// $passwd_hash = password_hash($password, PASSWORD_DEFAULT);
-
-
-
 
 //関数定義ファイルから関数呼び出す
 $pdo = connect_to_db();
 
-$sql = 'INSERT INTO seller_users (id, name, email, password, created_time, update_time) VALUES (NULL, :name ,:email, :password, now(), now())';
+$sql = 'INSERT INTO seller_users (id, name, email, password , created_time, update_time) VALUES (NULL, :name ,:email, :password, now(), now())';
 
 $stmt = $pdo->prepare($sql);
 

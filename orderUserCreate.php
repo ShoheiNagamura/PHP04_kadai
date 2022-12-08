@@ -20,9 +20,6 @@ if (
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
-//パスワードのハッシュ化
-// $passwd_hash = password_hash($password, PASSWORD_DEFAULT);
-
 
 
 //関数定義ファイルからDB接続関数呼び出す

@@ -1,9 +1,6 @@
 <?php
 // 販売者ログイン処理ーーーーーーーーーーーーー
 
-// var_dump($_POST);
-// exit();
-
 //セッションsタート
 session_start();
 
@@ -18,8 +15,8 @@ $password = $_POST['password'];
 //DB設定用関数呼び出し
 $pdo = connect_to_db();
 
-$sql = 'SELECT * FROM seller_users WHERE email=:email AND password=:password';
 
+$sql = 'SELECT * FROM seller_users WHERE email=:email AND password=:password';
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':email', $email, PDO::PARAM_STR);
 $stmt->bindValue(':password', $password, PDO::PARAM_STR);
@@ -32,8 +29,11 @@ try {
     exit();
 }
 
-
 $val = $stmt->fetch(PDO::FETCH_ASSOC);
+
+var_dump($val);
+exit();
+
 if (!$val) {
     echo "<p>ログイン情報に誤りがあります</p>";
     echo "<a href=seller_login.php>ログイン</a>";
