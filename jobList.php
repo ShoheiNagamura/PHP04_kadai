@@ -1,8 +1,79 @@
 <?php
-// トップページーーーーーーーーーーーーーー
+// 案件一覧画面ーーーーーーーーーーーーーーーーーーー
+
+// 関数ファイルの読み込み
+include('./functions/check_session_id');
+include('./functions/connect_to_db.php');
 
 session_start();
 
+// DB接続
+$pdo = connect_to_db();
+
+$sql = 'SELECT * FROM job_project order by update_time DESC';
+$stmt = $pdo->prepare($sql);
+
+//SQL実行するがまだデータの取得はできていない
+try {
+    $status = $stmt->execute();
+} catch (PDOException $e) {
+    echo json_encode(["sql error" => "{$e->getMessage()}"]);
+    exit();
+}
+
+if ($status == false) {
+    $error = $stmt->errorInfo();
+    exit('sqlError:' . $error[2]);
+} else {
+    // PHPではデータを取得するところまで実施
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$job_num = count($result);
+
+$output = "";
+
+foreach ($result as $record) {
+    $output .= "
+                <div class='job-item'>
+            <div class='job-head'>
+                <div class='jobName'>
+                    <p class=''>{$record["jobName"]}</p>
+                </div>
+                <div class='job-headTime'>
+                    <div class='created_time'>
+                        <p class=''>掲載日：{$record["created_time"]}</p>
+                    </div>
+                    <div class='update_time'>
+                        <p class=''>最終更新日：{$record["update_time"]}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class='status'>
+                <p class=''>{$record["status"]}</p>
+            </div>
+            <div class='place'>
+                <p class=''>場所：{$record["place"]}</p>
+            </div>
+            <div class='schedule'>
+                <p class=''>日程：{$record["schedule"]}</p>
+            </div>
+            <div class='reward'>
+                <p class=''>報酬：{$record["reward"]}円(税込)</p>
+            </div>
+            <div class='TransportationCosts'>
+                <p class=''>交通費：{$record["TransportationCosts"]}</p>
+            </div>
+            <div class='deadline'>
+                <p class=''>募集締切：{$record["deadline"]}</p>
+            </div>
+            <div class='content'>
+                <p class=''>案件の内容：{$record["content"]}</p>
+            </div>
+        </div>
+    ";
+}
 
 ?>
 
@@ -21,7 +92,6 @@ session_start();
 </head>
 
 <body>
-
     <header>
         <div class="header-title">
             <a href="./index.php">
@@ -75,11 +145,16 @@ session_start();
 
     <main>
 
+        <div class="main-area">
+            <h2>案件一覧</h2>
+            <h3 class="job_num"><?= $job_num ?>件を登録済み</h3>
+            <div class="job-area">
+                <?= $output ?>
+            </div>
+        </div>
+
     </main>
 
-    <script>
-
-    </script>
 
 </body>
 
