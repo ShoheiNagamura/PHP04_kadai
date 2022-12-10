@@ -16,10 +16,13 @@ $password = $_POST['password'];
 $pdo = connect_to_db();
 
 
-$sql = 'SELECT * FROM seller_users WHERE email=:email AND password=:password';
+// フォームから受け取ったemailのものを受け取るセレクトを用意
+$sql = 'SELECT * FROM seller_users WHERE email=:email';
+
+// SQLをセット
 $stmt = $pdo->prepare($sql);
+//SQLインジェクション対策のためにバインド変数でセット
 $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-$stmt->bindValue(':password', $password, PDO::PARAM_STR);
 
 //トライキャッチの中でクエリ実行
 try {
@@ -29,16 +32,18 @@ try {
     exit();
 }
 
+// 実行したSQLのデータを引っ張ってきて$valに格納
 $val = $stmt->fetch(PDO::FETCH_ASSOC);
 
-var_dump($val);
-exit();
+// var_dump($val);
+// exit();
 
-if (!$val) {
-    echo "<p>ログイン情報に誤りがあります</p>";
-    echo "<a href=seller_login.php>ログイン</a>";
+if ($val === false) {
+    echo 'メールアドレスが登録されていません。';
     exit();
-} else {
+}
+
+if (password_verify($_POST['password'], $val['password'])) {
     $_SESSION = array();
     $_SESSION['session_id'] = session_id();
     $_SESSION['id'] = $val['id'];
@@ -52,5 +57,9 @@ if (!$val) {
     $_SESSION['created_time'] = $val['created_time'];
     $_SESSION['update_time'] = $val['update_time'];
     header("Location:../index.php");
+    exit();
+} else {
+    echo "<p>ログイン情報に誤りがあります</p>";
+    echo "<a href=seller_login.php>ログイン</a>";
     exit();
 }
