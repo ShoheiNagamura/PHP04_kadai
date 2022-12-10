@@ -24,3 +24,15 @@ function seller_check_session_id()
         $_SESSION["session_id"] = session_id();
     }
 }
+
+
+// // aprikesyonチェック 
+// function apl_check_session_id()
+// {
+//     if (!isset($_SESSION["session_id"]) || $_SESSION["session_id"] != session_id()) {
+//         return $api_result = true;
+//     } else {
+//         session_regenerate_id(true);
+//         $_SESSION["session_id"] = session_id();
+//     }
+// }
