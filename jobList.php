@@ -7,6 +7,7 @@ include('./functions/connect_to_db.php');
 
 session_start();
 
+
 // DB接続
 $pdo = connect_to_db();
 
@@ -33,8 +34,10 @@ $job_num = count($result);
 
 $output = "";
 
-foreach ($result as $record) {
-    $output .= "
+// var_dump($result['id']);
+if (isset($_SESSION["id"])) {
+    foreach ($result as $record) {
+        $output .= "
                 <div class='job-item'>
             <div class='job-head'>
                 <div class='jobName'>
@@ -69,10 +72,54 @@ foreach ($result as $record) {
                 <p class=''>募集締切：{$record["deadline"]}</p>
             </div>
             <div class='content'>
-                <p class=''>案件の内容：{$record["content"]}</p>
+                <p class=''>案件の内容：<br>{$record["content"]}</p>
+            </div>
+            <button class='application-btn'>応募する</button>
+        </div>
+    ";
+    }
+} else {
+    foreach ($result as $record) {
+        $output .= "
+                <div class='job-item'>
+            <div class='job-head'>
+                <div class='jobName'>
+                    <p class=''>{$record["jobName"]}</p>
+                </div>
+                <div class='job-headTime'>
+                    <div class='created_time'>
+                        <p class=''>掲載日：{$record["created_time"]}</p>
+                    </div>
+                    <div class='update_time'>
+                        <p class=''>最終更新日：{$record["update_time"]}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class='status'>
+                <p class=''>{$record["status"]}</p>
+            </div>
+            <div class='place'>
+                <p class=''>場所：{$record["place"]}</p>
+            </div>
+            <div class='schedule'>
+                <p class=''>日程：{$record["schedule"]}</p>
+            </div>
+            <div class='reward'>
+                <p class=''>報酬：{$record["reward"]}円(税込)</p>
+            </div>
+            <div class='TransportationCosts'>
+                <p class=''>交通費：{$record["TransportationCosts"]}</p>
+            </div>
+            <div class='deadline'>
+                <p class=''>募集締切：{$record["deadline"]}</p>
+            </div>
+            <div class='content'>
+                <p class=''>案件の内容：<br>{$record["content"]}</p>
             </div>
         </div>
     ";
+    }
 }
 
 ?>
@@ -148,12 +195,23 @@ foreach ($result as $record) {
         <div class="main-area">
             <h2>案件一覧</h2>
             <h3 class="job_num"><?= $job_num ?>件を登録済み</h3>
+            <p>応募には登録が必要です。</p>
             <div class="job-area">
                 <?= $output ?>
             </div>
         </div>
 
     </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        const hoge = <?= json_encode($_SESSION['id']) ?>;
+        console.log(hoge);
+
+        if (!hoge) {
+            $('.application-btn').hide();
+        }
+    </script>
 
 
 </body>
